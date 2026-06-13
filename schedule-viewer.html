@@ -47,7 +47,6 @@
       font-size: 14px;
     }
 
-    /* Date Picker Styling */
     #datePicker {
       border: 1px solid #dce9f9;
       border-radius: 8px;
@@ -86,52 +85,6 @@
       color: #333;
     }
 
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px 0;
-    }
-
-    .status-box {
-      flex: 1;
-      background-color: #f0f7ff;
-      border: 1px solid #dce9f9;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      margin: 0 5px;
-    }
-
-    .status-box h4 {
-      margin: 0;
-      color: #004aad;
-      font-size: 16px;
-    }
-
-    .status-box p {
-      margin: 5px 0 0;
-      font-size: 18px;
-      font-weight: bold;
-      color: #0078d7;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      background-color: #0078d7;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      padding: 15px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 20px 0;
-    }
-
-    .button:hover {
-      background-color: #0057b8;
-    }
-
     footer {
       text-align: center;
       color: #555;
@@ -144,7 +97,6 @@
 <body>
   <div class="portal-container">
 
-    <!-- My Schedule Card -->
     <div class="card">
       <div>
         <h2>My Schedule</h2>
@@ -153,99 +105,87 @@
       <span style="font-size: 24px; color: #0078d7;">📅</span>
     </div>
 
-    <!-- Welcome Card -->
     <div class="card">
       <div>
         <h2>Welcome, Staff Member</h2>
-        <p>Week of 8 Jun – 12 Jun</p>
+        <p id="weekLabel">Select a date to load your schedule</p>
       </div>
     </div>
 
-    <!-- Date Selector Card -->
     <div class="card">
       <div>
         <h2>Select a Date</h2>
-        <p>Choose a specific day to view or update your schedule.</p>
+        <p>Choose a specific day to view your schedule.</p>
       </div>
       <input type="date" id="datePicker">
     </div>
 
-    <!-- Status Row -->
-    <div class="status-row">
-      <div class="status-box">
-        <h4>Active Today</h4>
-        <p>2</p>
-      </div>
-      <div class="status-box">
-        <h4>Week Status</h4>
-        <p>Imported</p>
-      </div>
-    </div>
-
-    <!-- Snapshot -->
     <h2 style="color:#004aad;">Monday – Friday Snapshot</h2>
-    <div class="schedule-summary">
-      <div class="day-box"><h3>Monday</h3><p>10:00 AM – 2:00 PM</p></div>
-      <div class="day-box"><h3>Tuesday</h3><p>OFF</p></div>
-      <div class="day-box"><h3>Wednesday</h3><p>10:00 AM – 2:00 PM</p></div>
-      <div class="day-box"><h3>Thursday</h3><p>OFF</p></div>
-      <div class="day-box"><h3>Friday</h3><p>10:00 AM – 1:00 PM</p></div>
-    </div>
-
-    <button class="button">Portal Help</button>
-
-    <!-- Messages Card -->
-    <div class="card">
-      <div>
-        <h2>Personal Messages</h2>
-        <p>Read active private messages sent to your staff email.</p>
-      </div>
-      <span style="font-size: 24px; color: #0078d7;">✉️</span>
+    <div class="schedule-summary" id="scheduleBoxes">
+      <div class="day-box"><h3>Monday</h3><p>—</p></div>
+      <div class="day-box"><h3>Tuesday</h3><p>—</p></div>
+      <div class="day-box"><h3>Wednesday</h3><p>—</p></div>
+      <div class="day-box"><h3>Thursday</h3><p>—</p></div>
+      <div class="day-box"><h3>Friday</h3><p>—</p></div>
     </div>
 
     <footer>Boys & Girls Club of Greater Holyoke © 2026</footer>
   </div>
 
-  <script>
-    const datePicker = document.getElementById('datePicker');
-
-    datePicker.addEventListener('change', function() {
-      const selectedDate = new Date(this.value);
-      const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-
-      alert(`You selected: ${selectedDate.toLocaleDateString('en-US', options)}`);
-    });
-  </script>
 <script>
-  const API_KEY = '87b68f6d4c3f33455aef3d92872cf19f';
-  const FORM_ID = '25d4ec6a05fe90c41319cdf81da36cd6';
+  const API_KEY = "87b68f6d4c3f33455aef3d92872cf19f";
+  const FORM_ID = "261605532325047";
 
-  async function loadSchedule(date) {
+  async function loadSchedule(selectedDate) {
     const response = await fetch(`https://api.jotform.com/form/${FORM_ID}/submissions?apiKey=${API_KEY}`);
     const data = await response.json();
 
-    const weekContainer = document.querySelector('.schedule-summary');
-    weekContainer.innerHTML = '';
+    const scheduleBoxes = document.getElementById("scheduleBoxes");
+    const weekLabel = document.getElementById("weekLabel");
 
-    const weekData = data.content.filter(sub => sub.answers && sub.answers['dateFieldID']?.answer === date);
+    scheduleBoxes.innerHTML = `
+      <div class="day-box"><h3>Monday</h3><p>—</p></div>
+      <div class="day-box"><h3>Tuesday</h3><p>—</p></div>
+      <div class="day-box"><h3>Wednesday</h3><p>—</p></div>
+      <div class="day-box"><h3>Thursday</h3><p>—</p></div>
+      <div class="day-box"><h3>Friday</h3><p>—</p></div>
+    `;
 
-    if (weekData.length === 0) {
-      weekContainer.innerHTML = `<p>No schedule is posted for the week of ${date}.</p>`;
+    const weekData = data.content.find(sub => {
+      const weekOf = sub.answers["3"]?.answer;
+      return weekOf === selectedDate;
+    });
+
+    if (!weekData) {
+      weekLabel.textContent = `No schedule posted for week of ${selectedDate}`;
       return;
     }
 
-    weekData.forEach(sub => {
-      const staff = sub.answers['staffNameFieldID']?.answer || 'Unknown';
-      const time = sub.answers['shiftTimeFieldID']?.answer || 'N/A';
-      const div = document.createElement('div');
-      div.className = 'day-box';
-      div.innerHTML = `<h3>${staff}</h3><p>${time}</p>`;
-      weekContainer.appendChild(div);
-    });
+    weekLabel.textContent = `Week of ${selectedDate}`;
+
+    const answers = weekData.answers;
+
+    const shifts = {
+      Monday: answers["4"]?.answer || "—",
+      Tuesday: answers["5"]?.answer || "—",
+      Wednesday: answers["6"]?.answer || "—",
+      Thursday: answers["7"]?.answer || "—",
+      Friday: answers["8"]?.answer || "—"
+    };
+
+    scheduleBoxes.innerHTML = Object.entries(shifts)
+      .map(([day, shift]) => `
+        <div class="day-box">
+          <h3>${day}</h3>
+          <p>${shift}</p>
+        </div>
+      `)
+      .join("");
   }
 
-  // Example: load schedule for June 8 2026
-  loadSchedule('2026‑06‑08');
+  document.getElementById("datePicker").addEventListener("change", function () {
+    loadSchedule(this.value);
+  });
 </script>
 
 </body>
