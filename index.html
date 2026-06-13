@@ -3,24 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BGCH Schedule Viewer</title>
+  <title>BGCH Staff Schedule Viewer</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f9fafc;
       margin: 0;
       padding: 0;
     }
+
     header {
-      background-color: #0078D7;
+      background-color: #0057b8; /* BGCH blue */
       color: white;
       text-align: center;
-      padding: 20px 0;
+      padding: 25px 0;
     }
+
     h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 30px;
+      letter-spacing: 1px;
     }
+
     main {
       padding: 20px;
       max-width: 900px;
@@ -29,27 +33,49 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 60%;
+      padding: 10px;
+      border: 2px solid #0057b8;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
     }
+
     th, td {
       border: 1px solid #ddd;
       padding: 12px;
       text-align: center;
     }
+
     th {
-      background-color: #0078D7;
+      background-color: #0057b8;
       color: white;
     }
+
     tr:nth-child(even) {
       background-color: #f2f2f2;
     }
+
+    tr:hover {
+      background-color: #ffe680; /* BGCH gold highlight */
+    }
+
     footer {
       text-align: center;
       padding: 15px;
-      background-color: #0078D7;
+      background-color: #0057b8;
       color: white;
       margin-top: 30px;
     }
@@ -57,12 +83,16 @@
 </head>
 <body>
   <header>
-    <h1>BGCH Staff Schedule Viewer</h1>
+    <h1>Boys & Girls Club of Greater Holyoke</h1>
+    <p>Staff Schedule Viewer</p>
   </header>
 
   <main>
-    <h2>Weekly Schedule</h2>
-    <table>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search by staff name...">
+    </div>
+
+    <table id="scheduleTable">
       <tr>
         <th>Day</th>
         <th>Staff Member</th>
@@ -84,20 +114,4 @@
         <td>8:00 AM – 4:00 PM</td>
       </tr>
       <tr>
-        <td>Thursday</td>
-        <td>Casey</td>
-        <td>9:00 AM – 5:00 PM</td>
-      </tr>
-      <tr>
-        <td>Friday</td>
-        <td>Riley</td>
-        <td>10:00 AM – 6:00 PM</td>
-      </tr>
-    </table>
-  </main>
-
-  <footer>
-    Boys & Girls Club of Greater Holyoke © 2026
-  </footer>
-</body>
-</html>
+        <td>Thursday
