@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BGCH Staff Schedule Viewer</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f9fbff 0%, #e6f0ff 100%);
+      color: #004aad;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .schedule-container {
+      width: 90%;
+      max-width: 900px;
+      border: 2px solid #cfe8ff;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 74, 173, 0.1);
+      padding: 25px;
+      text-align: center;
+    }
+
+    .schedule-title {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      color: #004aad;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .schedule-note {
+      font-size: 14px;
+      margin-top: 15px;
+      color: #004aad;
+    }
+
+    @media (max-width: 600px) {
+      .schedule-container {
+        padding: 15px;
+      }
+      iframe {
+        height: 500px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="schedule-container">
+    <h2 class="schedule-title">BGCH Staff Schedule Viewer</h2>
+    <iframe src="https://yourname.github.io/schedule-viewer.html" title="Schedule Viewer"></iframe>
+    <p class="schedule-note">Use the buttons inside the viewer to navigate between weeks.</p>
+  </div>
+</body>
+</html>
