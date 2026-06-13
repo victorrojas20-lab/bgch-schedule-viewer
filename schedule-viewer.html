@@ -3,64 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BGCH Staff Schedule Viewer</title>
+  <title>BGCH Staff Portal - Schedule Viewer</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #f9fbff 0%, #e6f0ff 100%);
-      color: #004aad;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #e9f4ff;
       margin: 0;
       padding: 40px;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
     }
 
-    .schedule-container {
+    .portal-container {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       width: 90%;
       max-width: 900px;
-      border: 2px solid #cfe8ff;
-      border-radius: 12px;
-      background: #ffffff;
-      box-shadow: 0 4px 10px rgba(0, 74, 173, 0.1);
-      padding: 25px;
+      padding: 30px;
+    }
+
+    .card {
+      border: 1px solid #dce9f9;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f9fbff;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #004aad;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .schedule-summary {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .day-box {
+      flex: 1 1 150px;
+      background-color: #f9fbff;
+      border: 1px solid #dce9f9;
+      border-radius: 10px;
+      padding: 15px;
       text-align: center;
     }
 
-    .schedule-title {
-      font-size: 1.8em;
-      margin-bottom: 20px;
+    .day-box h3 {
+      margin: 0;
       color: #004aad;
+      font-size: 16px;
     }
 
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 8px;
-    }
-
-    .schedule-note {
+    .day-box p {
+      margin: 5px 0 0;
       font-size: 14px;
-      margin-top: 15px;
-      color: #004aad;
+      color: #333;
     }
 
-    @media (max-width: 600px) {
-      .schedule-container {
-        padding: 15px;
-      }
-      iframe {
-        height: 500px;
-      }
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    .status-box {
+      flex: 1;
+      background-color: #f0f7ff;
+      border: 1px solid #dce9f9;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      margin: 0 5px;
+    }
+
+    .status-box h4 {
+      margin: 0;
+      color: #004aad;
+      font-size: 16px;
+    }
+
+    .status-box p {
+      margin: 5px 0 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #0078d7;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+
+    .button:hover {
+      background-color: #0057b8;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      font-size: 13px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="schedule-container">
-    <h2 class="schedule-title">BGCH Staff Schedule Viewer</h2>
-    <iframe src="https://yourname.github.io/schedule-viewer.html" title="Schedule Viewer"></iframe>
-    <p class="schedule-note">Use the buttons inside the viewer to navigate between weeks.</p>
+  <div class="portal-container">
+    <div class="card">
+      <div>
+        <h2>My Schedule</h2>
+        <p>Open your current week and move between weeks.</p>
+      </div>
+      <span style="font-size: 24px; color: #0078d7;">📅</span>
+    </div>
+
+    <div class="card">
+      <div>
+        <h2>Welcome, Staff Member</h2>
+        <p>Week of 8 Jun – 12 Jun</p>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <div class="status-box">
+        <h4>Active Today</h4>
+        <p>2</p>
+      </div>
+      <div class="status-box">
+        <h4>Week Status</h4>
+        <p>Imported</p>
+      </div>
+    </div>
+
+    <h2 style="color:#004aad;">Monday – Friday Snapshot</h2>
+    <div class="schedule-summary">
+      <div class="day-box"><h3>Monday</h3><p>10:00 AM – 2:00 PM</p></div>
+      <div class="day-box"><h3>Tuesday</h3><p>OFF</p></div>
+      <div class="day-box"><h3>Wednesday</h3><p>10:00 AM – 2:00 PM</p></div>
+      <div class="day-box"><h3>Thursday</h3><p>OFF</p></div>
+      <div class="day-box"><h3>Friday</h3><p>10:00 AM – 1:00 PM</p></div>
+    </div>
+
+    <button class="button">Portal Help</button>
+
+    <div class="card">
+      <div>
+        <h2>Personal Messages</h2>
+        <p>Read active private messages sent to your staff email.</p>
+      </div>
+      <span style="font-size: 24px; color: #0078d7;">✉️</span>
+    </div>
+
+    <footer>Boys & Girls Club of Greater Holyoke © 2026</footer>
   </div>
 </body>
 </html>
