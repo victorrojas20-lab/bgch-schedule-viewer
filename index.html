@@ -1,9 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>BGCH Schedule Viewer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BGCH Schedule Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #0078D7;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #0078D7;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #0078D7;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-    <h1>BGCH Schedule Viewer is working!</h1>
+  <header>
+    <h1>BGCH Staff Schedule Viewer</h1>
+  </header>
+
+  <main>
+    <h2>Weekly Schedule</h2>
+    <table>
+      <tr>
+        <th>Day</th>
+        <th>Staff Member</th>
+        <th>Shift</th>
+      </tr>
+      <tr>
+        <td>Monday</td>
+        <td>Alex</td>
+        <td>9:00 AM – 5:00 PM</td>
+      </tr>
+      <tr>
+        <td>Tuesday</td>
+        <td>Jordan</td>
+        <td>10:00 AM – 6:00 PM</td>
+      </tr>
+      <tr>
+        <td>Wednesday</td>
+        <td>Taylor</td>
+        <td>8:00 AM – 4:00 PM</td>
+      </tr>
+      <tr>
+        <td>Thursday</td>
+        <td>Casey</td>
+        <td>9:00 AM – 5:00 PM</td>
+      </tr>
+      <tr>
+        <td>Friday</td>
+        <td>Riley</td>
+        <td>10:00 AM – 6:00 PM</td>
+      </tr>
+    </table>
+  </main>
+
+  <footer>
+    Boys & Girls Club of Greater Holyoke © 2026
+  </footer>
 </body>
 </html>
