@@ -95,11 +95,54 @@
       margin-top: 20px;
     }
 
-    .note {
-      margin-top: 8px;
-      font-size: 13px;
-      color: #cc0000;
-      font-weight: bold;
+    /* ⭐ RESPONSIVE DESIGN ⭐ */
+    @media (max-width: 900px) {
+      body {
+        padding: 20px;
+      }
+
+      .portal-container {
+        padding: 20px;
+      }
+
+      .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        text-align: left;
+      }
+
+      #datePicker {
+        width: 100%;
+      }
+
+      .schedule-summary {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .day-box {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 16px;
+      }
+
+      .day-box h3 {
+        font-size: 14px;
+      }
+
+      .day-box p {
+        font-size: 13px;
+      }
+
+      .portal-container {
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -126,7 +169,7 @@
       <div>
         <h2>Select a Date</h2>
         <p>Choose a specific day to view your schedule.</p>
-        <p class="note">Always select Monday to view your weekly schedule.</p>
+	 <p class="note">Always select Monday to view your weekly schedule.</p>
       </div>
       <input type="date" id="datePicker">
     </div>
@@ -194,13 +237,10 @@
       .join("");
   }
 
-  // Convert Tue–Fri to Monday before loading
   document.getElementById("datePicker").addEventListener("change", function () {
-    let d = new Date(this.value);
-    let day = d.getDay(); // Monday=1, Tuesday=2, ..., Friday=5
+    loadSchedule(this.value);
+  });
+</script>
 
-    if (day !== 1) {
-      d.setDate(d.getDate() - (day - 1)); // move back to Monday
-    }
-
-    const mondayString = d.toISOString().split("T")[0];
+</body>
+</html>
