@@ -94,6 +94,13 @@
       font-size: 13px;
       margin-top: 20px;
     }
+
+    .note {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #cc0000;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -119,6 +126,7 @@
       <div>
         <h2>Select a Date</h2>
         <p>Choose a specific day to view your schedule.</p>
+        <p class="note">Always select Monday to view your weekly schedule.</p>
       </div>
       <input type="date" id="datePicker">
     </div>
@@ -186,7 +194,7 @@
       .join("");
   }
 
-  // ✅ Fix: Convert Tue–Fri to Monday before calling loadSchedule()
+  // Convert Tue–Fri to Monday before loading
   document.getElementById("datePicker").addEventListener("change", function () {
     let d = new Date(this.value);
     let day = d.getDay(); // Monday=1, Tuesday=2, ..., Friday=5
@@ -196,4 +204,3 @@
     }
 
     const mondayString = d.toISOString().split("T")[0];
-    loadSchedule
