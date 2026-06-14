@@ -189,6 +189,15 @@
   const API_KEY = "87b68f6d4c3f33455aef3d92872cf19f";
   const FORM_ID = "261605532325047";
 
+  // ⭐ Convert ANY selected date to the Monday of that week
+  function getMonday(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    const monday = new Date(date.setDate(diff));
+    return monday.toISOString().split("T")[0];
+  }
+
   async function loadSchedule(selectedDate) {
     const response = await fetch(`https://api.jotform.com/form/${FORM_ID}/submissions?apiKey=${API_KEY}`);
     const data = await response.json();
@@ -204,17 +213,20 @@
       <div class="day-box"><h3>Friday</h3><p>—</p></div>
     `;
 
+    // ⭐ Convert selected date to Monday
+    const mondayOfWeek = getMonday(selectedDate);
+
     const weekData = data.content.find(sub => {
       const weekOf = sub.answers["3"]?.answer;
-      return weekOf === selectedDate;
+      return weekOf === mondayOfWeek;
     });
 
     if (!weekData) {
-      weekLabel.textContent = `No schedule posted for week of ${selectedDate}`;
+      weekLabel.textContent = `No schedule posted for week of ${mondayOfWeek}`;
       return;
     }
 
-    weekLabel.textContent = `Week of ${selectedDate}`;
+    weekLabel.textContent = `Week of ${mondayOfWeek}`;
 
     const answers = weekData.answers;
 
