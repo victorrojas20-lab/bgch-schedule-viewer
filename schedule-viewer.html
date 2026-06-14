@@ -94,56 +94,6 @@
       font-size: 13px;
       margin-top: 20px;
     }
-
-    /* ⭐ RESPONSIVE DESIGN ⭐ */
-    @media (max-width: 900px) {
-      body {
-        padding: 20px;
-      }
-
-      .portal-container {
-        padding: 20px;
-      }
-
-      .card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        text-align: left;
-      }
-
-      #datePicker {
-        width: 100%;
-      }
-
-      .schedule-summary {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .day-box {
-        flex: 1 1 100%;
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h2 {
-        font-size: 16px;
-      }
-
-      .day-box h3 {
-        font-size: 14px;
-      }
-
-      .day-box p {
-        font-size: 13px;
-      }
-
-      .portal-container {
-        padding: 15px;
-      }
-    }
   </style>
 </head>
 
@@ -236,8 +186,17 @@
       .join("");
   }
 
+  // ⭐ FIX: Convert Tue–Fri to Monday BEFORE calling loadSchedule()
   document.getElementById("datePicker").addEventListener("change", function () {
-    loadSchedule(this.value);
+    let d = new Date(this.value);
+    let day = d.getDay(); // Monday=1, Tuesday=2, ..., Friday=5
+
+    if (day !== 1) {
+      d.setDate(d.getDate() - (day - 1)); // move back to Monday
+    }
+
+    const mondayString = d.toISOString().split("T")[0];
+    loadSchedule(mondayString);
   });
 </script>
 
