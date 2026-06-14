@@ -95,7 +95,6 @@
       margin-top: 20px;
     }
 
-    /* ⭐ RESPONSIVE DESIGN ⭐ */
     @media (max-width: 900px) {
       body {
         padding: 20px;
@@ -198,6 +197,12 @@
     return monday.toISOString().split("T")[0];
   }
 
+  // ⭐ Convert Jotform's "Jun 15, 2026" into "2026-06-15"
+  function convertJotformDate(dateString) {
+    const date = new Date(dateString);
+    return date.toISOString().split("T")[0];
+  }
+
   async function loadSchedule(selectedDate) {
     const response = await fetch(`https://api.jotform.com/form/${FORM_ID}/submissions?apiKey=${API_KEY}`);
     const data = await response.json();
@@ -213,12 +218,11 @@
       <div class="day-box"><h3>Friday</h3><p>—</p></div>
     `;
 
-    // ⭐ Convert selected date to Monday
     const mondayOfWeek = getMonday(selectedDate);
 
     const weekData = data.content.find(sub => {
       const weekOf = sub.answers["3"]?.answer;
-      return weekOf === mondayOfWeek;
+      return convertJotformDate(weekOf) === mondayOfWeek;
     });
 
     if (!weekData) {
